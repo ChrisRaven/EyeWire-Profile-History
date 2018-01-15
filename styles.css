@@ -1,0 +1,102 @@
+.profileNavButtonGroup,
+.ewsProfileHistoryButtonGroup {
+    text-align: center;
+    margin-bottom: 7px;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.ewsProfileHistoryButtonGroup {
+    width: 370px;
+}
+
+.profileNavButtonGroup div,
+.ewsProfileHistoryButtonGroup div {
+    margin-left: 7px;
+    box-sizing: border-box;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
+
+.profileNavButton,
+.ewsProfileHistoryButton {
+    cursor: pointer;
+    border: 1px solid rgba(60,60,60,.83);
+    padding: 7px;
+    border-radius: 2px;
+    font-size: 13px;
+    color: #e4e1e1;
+    letter-spacing: .5px;
+    font-weight: 400;
+    background-color: transparent;
+    outline: none;
+    box-shadow: none;
+    transition: background-color .1s ease-in-out,border-color .1s ease-in-out,color .1s ease-in-out;
+    width: 100%;
+}
+
+.profileNavButton:hover,
+.ewsProfileHistoryButton:hover {
+    background-color:hsla(0,0%,100%,.11);
+}
+
+.profileNavButton:active,
+.ewsProfileHistoryButton:active {
+    background-color:hsla(0,0%,100%,.07);
+}
+
+.profileNavButton.selected,
+.ewsProfileHistoryButton.selected {
+    background-color: rgba(54,121,165,.8);
+}
+
+.own-profile {
+    height: 660px !important;
+}
+
+.own-profile #performanceBadges {
+    overflow-y: auto;
+    height: 535px;
+}
+
+.own-profile #profProfile {
+    height: 590px;
+}
+
+.own-profile #lastChartsWrapper {
+    display: inline-block;
+    margin-top: 30px;
+}
+
+.own-profile #ewsProfileHistoryChart {
+    display: inline-block;
+    width: 800px;
+    height: 200px;
+}
+
+#profileTimeRangeSelection,
+#ews-profile-history-period-selection,
+#lastChartsWrapper {
+    display: none;
+}
+
+.own-profile #profileTimeRangeSelection,
+.own-profile #ews-profile-history-period-selection {
+    display: flex;
+}
+
+.own-profile #lastChartsWrapper {
+    display: block;
+}
+
+#profStatsAbout {
+    display: none;
+}
