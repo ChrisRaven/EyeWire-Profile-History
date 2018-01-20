@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1
+// @version      1.0.1
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -381,7 +381,7 @@ function Tracker() {
     fillingHelper(res, el, 'trailblazes', type, period);
     if (account.roles.scout) {
       fillingHelper(res, el, 'scythes', type, period);
-      if (account.roles.scythe) {
+      if (account.roles.scythe || account.roles.mystic || account.roles.admin) {
         fillingHelper(res, el, 'complete', type, period);
       }
     }
@@ -441,7 +441,7 @@ function Tracker() {
     let lbl = 'cubes, tbs';
     if (account.roles.scout) {
       lbl += ', scythes';
-      if (account.roles.scythe) {
+      if (account.roles.scythe || account.roles.mystic || account.roles.admin) {
         lbl += ', scs';
       }
     }
@@ -597,7 +597,7 @@ function Tracker() {
         borderColor: Cell.ScytheVisionColors.scythed,
       });
 
-      if (account.roles.scythe) {
+      if (account.roles.scythe || account.roles.mystic || account.roles.admin) {
         color = ColorUtils.hexToRGB(Cell.ScytheVisionColors.complete2);
         this.addDataSeries({
           settings: settings,
@@ -724,7 +724,7 @@ function Tracker() {
 
     GM_xmlhttpRequest({
       method: 'GET',
-      url: 'http://ewstats.feedia.co/update_local_counters.php?' + data,
+      url: 'https://ewstats.feedia.co/update_local_counters.php?' + data,
       onload: function (response) {
         if (response && response.responseText) {
           let data = JSON.parse(response.responseText);
@@ -793,7 +793,7 @@ function Tracker() {
       _this.updateDataInProfile();
       _this.mainProfileLoaded = true;
     })
-    .on('stats-collected', function () {
+    .on('profile-stats-ready', function () {
       _this.collectingInProgress = false;
     });
 
@@ -863,22 +863,6 @@ function Tracker() {
   observer.observe(K.gid('profileContainer'), {attributes: true});
 }
 // end: TRACKER
-
-
-K.injectJS(`
-  (function (open) {
-    XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
-      this.addEventListener("readystatechange", function (evt) {
-        if (this.readyState == 4 && this.status == 200 &&
-            url.indexOf('/stats') !== -1 &&
-            method.toLowerCase() === 'get') {
-          $(document).trigger('stats-collected');
-        }
-      }, false);
-      open.call(this, method, url, async, user, pass);
-    };
-  }) (XMLHttpRequest.prototype.open);
-`);
 
 
 if (LOCAL) {
