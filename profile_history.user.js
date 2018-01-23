@@ -1,19 +1,18 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.1
+// @version      1.0.2
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
 // @exclude      https://*.eyewire.org/1.0/*
 // @downloadURL  https://raw.githubusercontent.com/ChrisRaven/EyeWire-Profile-History/master/profile_history.user.js
-// @grant        GM_xmlhttpRequest
 // @connect      ewstats.feedia.co
 // @require      https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js
 // ==/UserScript==
 
 /*jshint esversion: 6 */
-/*globals $, account, GM_xmlhttpRequest, Chart, Cell, ColorUtils */
+/*globals $, account, Chart, Cell, ColorUtils */
 
 
 var LOCAL = false;
@@ -75,7 +74,26 @@ if (LOCAL) {
       tgt = document.getElementsByTagName('head')[0] || document.body || document.documentElement;
       tgt.appendChild(scriptNode);
     },
-    
+
+    JSON_CORS: function (params) {
+      fetch(params.url, {
+        method: params.method,
+        // mode: 'cors'
+      })
+      .then(function (response) {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Something went wrong');
+      })
+      .then(function (json) {
+        params.onload(json);
+      })
+      .catch(function (error) {
+        params.onerror(error);
+      });
+    },
+
     date: {
       dayLengthInMs: 1000 * 60 * 60 * 24,
       // returns date in format of YYYY-MM-DD
@@ -722,47 +740,38 @@ function Tracker() {
       'charts=1'
     ].join('&');
 
-    GM_xmlhttpRequest({
+    K.JSON_CORS({
       method: 'GET',
       url: 'https://ewstats.feedia.co/update_local_counters.php?' + data,
       onload: function (response) {
-        if (response && response.responseText) {
-          let data = JSON.parse(response.responseText);
-          if (data.result === 'ok') {
-            K.ls.set('profile-history-previous', JSON.stringify({
-              day: _this.fillTheGaps(data.previous.day || {}),
-              week: _this.fillTheGaps(data.previous.week || {}),
-              month: _this.fillTheGaps(data.previous.month || {})
-            }));
-            K.ls.set('profile-history-best', JSON.stringify({
-              day: _this.fillTheGaps(data.best.day || {}),
-              week: _this.fillTheGaps(data.best.week || {}),
-              month: _this.fillTheGaps(data.best.month || {})
-            }));
-            K.ls.set('profile-history-charts', JSON.stringify({
-              days: data.charts.days,
-              weeks: data.charts.weeks,
-              months: data.charts.months
-            }));
-            _this.updateDataInProfile();
+        if (response) {
+          K.ls.set('profile-history-previous', JSON.stringify({
+            day: _this.fillTheGaps(response.previous.day || {}),
+            week: _this.fillTheGaps(response.previous.week || {}),
+            month: _this.fillTheGaps(response.previous.month || {})
+          }));
+          K.ls.set('profile-history-best', JSON.stringify({
+            day: _this.fillTheGaps(response.best.day || {}),
+            week: _this.fillTheGaps(response.best.week || {}),
+            month: _this.fillTheGaps(response.best.month || {})
+          }));
+          K.ls.set('profile-history-charts', JSON.stringify({
+            days: response.charts.days,
+            weeks: response.charts.weeks,
+            months: response.charts.months
+          }));
+          _this.updateDataInProfile();
 
-            if (callback) {
-              callback();
-            }
-          }
-          else {
-            console.error(data.msg);
+          if (callback) {
+            callback();
           }
         }
         else {
           console.error('Something went wrong while updating the data from the server');
         }
       },
-      onerror: function (response) {
-        console.error('error: ', response);
-      },
-      ontimeout: function (response) {
-        console.error('timeout: ', response);
+      onerror: function (error) {
+        console.error('error: ', error.message);
       }
     });
   };
