@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.2
+// @version      1.0.3
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -253,7 +253,7 @@ if (LOCAL) {
             result.push(year + '-' + (cursor < 9 ? '0' : '') + (cursor + 1));
             --yearLength;
             while (yearLength--) {
-              if (cursor > 11) {
+              if (cursor > 10) {
                 cursor = 0;
                 ++year;
               }
@@ -267,7 +267,7 @@ if (LOCAL) {
             result.push(months[cursor]);
             --yearLength;
             while (yearLength--) {
-              if (cursor > 11) {
+              if (cursor > 10) {
                 cursor = 0;
               }
               else {
