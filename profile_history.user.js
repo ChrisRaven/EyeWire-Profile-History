@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.3
+// @version      1.0.4
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -477,6 +477,9 @@ function Tracker() {
             "ticks":{
               fontColor: '#bfbfbf'
             },
+            'gridLines': {
+              'display': false
+            },
             'stacked': true,
             barPercentage: 0.7,
           }],
@@ -485,6 +488,9 @@ function Tracker() {
               "ticks":{
                 "beginAtZero": true,
                 fontColor: '#bfbfbf'
+              },
+              'gridLines': {
+                'display': false
               },
               id: 'y-axis-left',
               position: 'left',
@@ -499,6 +505,9 @@ function Tracker() {
               "ticks":{
                 "beginAtZero": true,
                 fontColor: '#bfbfbf'
+              },
+              'gridLines': {
+                'display': false
               },
               id: 'y-axis-right',
               position: 'right',
