@@ -397,9 +397,9 @@ function Tracker() {
     fillingHelper(res, el, 'points', type, period);
     fillingHelper(res, el, 'cubes', type, period);
     fillingHelper(res, el, 'trailblazes', type, period);
-    if (account.roles.scout) {
+    if (account.can('scout')) {
       fillingHelper(res, el, 'scythes', type, period);
-      if (account.roles.scythe || account.roles.mystic || account.roles.admin) {
+      if (account.can('scythe mystic admin')) {
         fillingHelper(res, el, 'complete', type, period);
       }
     }
@@ -457,9 +457,9 @@ function Tracker() {
 
   this.getChartSettings = function (labels) {
     let lbl = 'cubes, tbs';
-    if (account.roles.scout) {
+    if (account.can('scout')) {
       lbl += ', scythes';
-      if (account.roles.scythe || account.roles.mystic || account.roles.admin) {
+      if (account.can('scythe mystic admin')) {
         lbl += ', scs';
       }
     }
@@ -614,7 +614,7 @@ function Tracker() {
       borderColor: '#FFA500',
     });
 
-    if (account.roles.scout) {
+    if (account.can('scout')) {
       color = ColorUtils.hexToRGB(Cell.ScytheVisionColors.scythed);
       this.addDataSeries({
         settings: settings,
@@ -624,7 +624,7 @@ function Tracker() {
         borderColor: Cell.ScytheVisionColors.scythed,
       });
 
-      if (account.roles.scythe || account.roles.mystic || account.roles.admin) {
+      if (account.can('scythe mystic admin')) {
         color = ColorUtils.hexToRGB(Cell.ScytheVisionColors.complete2);
         this.addDataSeries({
           settings: settings,
