@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.4
+// @version      1.0.4.1
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -724,7 +724,7 @@ function Tracker() {
 
       let best = K.ls.get('profile-history-best');
       _this.result.best = best ? JSON.parse(best) : empty;
-      
+
       _this.addCharts('days', K.date.getLast.sevenDays());
 
     }, 50);
@@ -806,7 +806,7 @@ function Tracker() {
   this.mainProfileLoaded = false;
 
   $(document)
-    .on('click', '#profileButton', function () {
+    .on('click', '#acc', function () {
       _this.collectingInProgress = true;
       _this.updateDataInProfile();
       _this.mainProfileLoaded = true;
