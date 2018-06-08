@@ -100,3 +100,30 @@
 #profStatsAbout {
     display: none;
 }
+
+
+@media (max-height: 700px) {
+    #profileContainer {
+        height: auto !important;
+        width: 880px;
+    }
+
+    .profPane:not(#profBadges),
+    #badgeCategories {
+        overflow-y: auto;
+        height: 450px !important;
+    }
+
+    #profBadges {
+        overflow-y: hidden;
+        height: 450px;
+    }
+
+    #profChooseCrew {
+        height: 430px;
+    }
+
+    #badgeCategories {
+        padding-right: 20px !important;
+    }
+}
