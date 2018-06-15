@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.4.1
+// @version      1.0.5
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -895,6 +895,18 @@ else {
 new Tracker(); // jshint ignore:line
 
 
+$('.spawnerBacklog > h1').append('<button id="pizza-button" class="smallButton flat darkGrayButton">🍕</button>');
+$('#pizza-button').click(function () {
+  var popup = new Attention.Confirmation({
+    situation: 'information calm',
+    title: 'SPAWNER',
+    message: 'THANKS!<br><div style="font-size: 10px">*om nom nom*</div>',
+    ok: { label: 'You\'re Welcome!', klass: 'flat' },
+    cancel: { skip: true }
+  });
+
+  popup.show();
+});
 
 } // end: main()
 

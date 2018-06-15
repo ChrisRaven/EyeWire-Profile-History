@@ -123,3 +123,13 @@
         height: 430px;
     }
 }
+
+#pizza-button {
+    width: 30px;
+    margin-left: 20px;
+    background-color: rgba(54,54,54,.97);
+}
+
+#pizza-button:hover {
+    background-color: #3d3d3d;
+}
