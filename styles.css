@@ -117,6 +117,7 @@
     #badgeCategories {
       padding-top: 0 !important;
       padding-right: 10px !important;
+      padding-bottom: 0 !important;
     }
 
     #profBacklog {
