@@ -114,6 +114,16 @@
         height: 450px !important;
     }
 
+    #badgeCategories {
+      padding-top: 0 !important;
+      padding-right: 10px !important;
+    }
+
+    #profBacklog {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
     #profBadges {
         overflow-y: hidden;
         height: 450px;
