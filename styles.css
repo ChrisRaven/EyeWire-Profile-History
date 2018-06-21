@@ -103,34 +103,34 @@
 
 
 @media (max-height: 700px) {
-    #profileContainer {
+    #profileContainer.own-profile {
         height: auto !important;
         width: 880px;
     }
 
-    .profPane:not(#profBadges),
-    #badgeCategories {
+    .own-profile .profPane:not(#profBadges),
+    .own-profile #badgeCategories {
         overflow-y: auto;
         height: 450px !important;
     }
 
-    #badgeCategories {
+    .own-profile #badgeCategories {
       padding-top: 0 !important;
       padding-right: 10px !important;
       padding-bottom: 0 !important;
     }
 
-    #profBacklog {
+    .own-profile #profBacklog {
       padding-top: 0 !important;
       padding-bottom: 0 !important;
     }
 
-    #profBadges {
+    .own-profile #profBadges {
         overflow-y: hidden;
         height: 450px;
     }
 
-    #profChooseCrew {
+    .own-profile #profChooseCrew {
         height: 430px;
     }
 }
