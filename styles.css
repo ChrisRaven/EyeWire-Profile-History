@@ -59,7 +59,7 @@
 }
 
 .own-profile {
-    height: 660px !important;
+    height: auto !important;
 }
 
 .own-profile #performanceBadges {
@@ -104,7 +104,6 @@
 
 @media (max-height: 700px) {
     #profileContainer.own-profile {
-        height: auto !important;
         width: 880px;
     }
 
@@ -112,6 +111,8 @@
     .own-profile #badgeCategories {
         overflow-y: auto;
         height: 450px !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
     }
 
     .own-profile #badgeCategories {
@@ -143,4 +144,9 @@
 
 #pizza-button:hover {
     background-color: #3d3d3d;
+}
+
+
+#profProfile>div:nth-child(2) {
+  margin-left: initial !important;
 }

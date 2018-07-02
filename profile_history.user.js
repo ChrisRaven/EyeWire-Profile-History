@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.5
+// @version      1.0.5.1
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -78,7 +78,7 @@ if (LOCAL) {
     JSON_CORS: function (params) {
       fetch(params.url, {
         method: params.method,
-        // mode: 'cors'
+        mode: 'cors'
       })
       .then(function (response) {
         if (response.ok) {
