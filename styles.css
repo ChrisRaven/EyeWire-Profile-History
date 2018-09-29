@@ -150,3 +150,8 @@
 #profProfile>div:nth-child(2) {
   margin-left: initial !important;
 }
+
+.attention-display {
+  -webkit-transform: translate(-50.5%,-50.5%) !important;
+  transform: translate(-50.5%,-50.5%) !important;
+}
