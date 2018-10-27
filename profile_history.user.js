@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.5.1
+// @version      1.0.6
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -96,12 +96,17 @@ if (LOCAL) {
 
     date: {
       dayLengthInMs: 1000 * 60 * 60 * 24,
+
       // returns date in format of YYYY-MM-DD
       ISO8601DateStr: function (date) {
         return new Intl.DateTimeFormat('en-CA', {
             year: 'numeric',
             month: 'numeric',
-            day: 'numeric'
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false
           }).format(date);
       },
       
@@ -111,7 +116,11 @@ if (LOCAL) {
             timeZone: 'America/New_York',
             year: 'numeric',
             month: 'numeric',
-            day: 'numeric'
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false
           }).format(Date.now());
       },
 
@@ -159,8 +168,7 @@ if (LOCAL) {
           let cursor;
 
           if (asDates) {
-            cursor = new Date();
-            cursor.setTime(currentHqDate.getTime() - weekLength * K.date.dayLengthInMs);
+            cursor = new Date(currentHqDate.getTime() - weekLength * K.date.dayLengthInMs);
 
             while (weekLength--) {
               result.push(new Intl.DateTimeFormat('en-CA', {
@@ -788,10 +796,11 @@ function Tracker() {
   
   (function update() {
     let propName = 'profile-history-last-update-date';
+    let hqDate = K.date.calculateHqDate().split(',')[0];
     let lastUpdateDate = K.ls.get(propName);
-    if (!lastUpdateDate || lastUpdateDate != K.date.calculateHqDate()) {
+    if (!lastUpdateDate || lastUpdateDate != hqDate) {
       _this.updateClient(function () {
-        K.ls.set(propName, K.date.calculateHqDate());
+        K.ls.set(propName, hqDate);
       });
     }
   })();
