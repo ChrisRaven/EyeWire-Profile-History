@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Profile History
 // @namespace    http://tampermonkey.net/
-// @version      1.0.6
+// @version      2.0.0.0
 // @description  Shows Profile History
 // @author       Krzysztof Kruk
 // @match        https://*.eyewire.org/*
@@ -759,7 +759,7 @@ function Tracker() {
 
     K.JSON_CORS({
       method: 'GET',
-      url: 'https://ewstats.feedia.co/update_local_counters.php?' + data,
+      url: 'https://ewstats.heliohost.us/update_local_counters.php?' + data,
       onload: function (response) {
         if (response) {
           K.ls.set('profile-history-previous', JSON.stringify({
